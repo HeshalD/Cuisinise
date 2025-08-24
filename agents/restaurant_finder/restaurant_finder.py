@@ -6,7 +6,19 @@ restaurants = [
     {"name": "Curry Corner", "cuisine": "Sri Lankan", "location": "Colombo"},
 ]
 
-def recommend(cuisine=None, location=None):
+def recommend(query):
+    query = query.lower()
+    cuisine = None
+    location = None
+
+    # Try to match cuisine and location from user query
+    for r in restaurants:
+        if r["cuisine"].lower() in query:
+            cuisine = r["cuisine"]
+        if r["location"].lower() in query:
+            location = r["location"]
+
+    # Filter results
     results = restaurants
     if cuisine:
         results = [r for r in results if r["cuisine"].lower() == cuisine.lower()]
@@ -15,13 +27,14 @@ def recommend(cuisine=None, location=None):
     return results
 
 print("Welcome to Restaurant Finder Agent!")
+print("Type something like to eat: ")
 
 while True:
-    cuisine_input = input("Enter cuisine type (or press Enter to skip, 'quit' to exit): ")
-    if cuisine_input.lower() == "quit":
+    user_input = input("\nYour query (type 'quit' to exit): ")
+    if user_input.lower() == "quit":
         break
-    location_input = input("Enter location (or press Enter to skip): ")
-    matches = recommend(cuisine_input, location_input)
+
+    matches = recommend(user_input)
 
     if matches:
         print("Restaurants found:")
