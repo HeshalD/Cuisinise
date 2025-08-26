@@ -1,0 +1,17 @@
+[
+  {
+    "title": "Coconut Lentil Curry",
+    "ingredients": ["lentils", "coconut milk", "onion", "garlic", "spices"],
+    "instructions": "Cook lentils until soft, add coconut milk and spices, simmer."
+  },
+  {
+    "title": "Chicken Fried Rice",
+    "ingredients": ["chicken", "rice", "soy sauce", "egg", "vegetables"],
+    "instructions": "Stir fry chicken, add rice, vegetables, soy sauce, and egg."
+  },
+  {
+    "title": "Vegetable Stir Fry",
+    "ingredients": ["broccoli", "carrot", "capsicum", "soy sauce", "garlic"],
+    "instructions": "Stir fry vegetables in oil, add garlic and soy sauce."
+  }
+]
