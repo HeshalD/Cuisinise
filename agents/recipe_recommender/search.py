@@ -1,49 +1,18 @@
-import json
+import faiss
+import pandas as pd
+import sqlite3
+from sentence_transformers import SentenceTransformer
 import spacy
-from textblob import TextBlob
-#import fuzzy
 
-# Load SpaCy medium English model
+# Load SpaCy if you want ingredient extraction
 nlp = spacy.load("en_core_web_md")
 
-# Soundex for phonetic matching
-#soundex = fuzzy.Soundex(4)
-
-# ---------------- Utility Functions ----------------
-def correct_spelling(text):
-    """Correct basic spelling mistakes."""
-    try:
-        return str(TextBlob(text).correct())
-    except:
-        return text
-
 def extract_ingredients(text):
-    """
-    Extract ingredient-like words from user input.
-    Handles commas and other separators, falls back to splitting if SpaCy finds nothing.
-    """
-    # Replace commas and "and" with spaces
     text = text.replace(",", " ").replace("and", " ")
-    
     doc = nlp(text.lower())
-    ingredients = [token.lemma_ for token in doc if token.pos_ in ("NOUN", "PROPN")]
-    
-    # Fallback: add single words if none found (for typos or unrecognized words)
-    if not ingredients:
-        ingredients = text.lower().split()
-    
-    return ingredients
-
-#def match_ingredient_phonetic(user_ing, recipe_ings):
-   # """Return True if user ingredient sounds like any recipe ingredient."""
-   # user_code = soundex(user_ing.lower())
-   # for r_ing in recipe_ings:
-   #     if user_code == soundex(r_ing.lower()):
-   #         return True
-   # return False
+    return [token.lemma_ for token in doc if token.pos_ in ("NOUN", "PROPN")]
 
 def detect_dish_type(text):
-    """Simple keyword-based dish type detection."""
     categories = ["soup", "dessert", "salad", "pasta", "cake", "stew", "curry",
                   "rice", "pizza", "sandwich", "noodles", "beverage", "breakfast",
                   "side dish", "tacos", "stir fry"]
@@ -52,47 +21,73 @@ def detect_dish_type(text):
             return cat
     return None
 
-# ---------------- Recipe Recommender ----------------
-class RecipeRecommender:
-    def __init__(self, data_path="data/recipes.json"):
-        with open(data_path, "r") as f:
-            self.recipes = json.load(f)
 
-        # Lowercased ingredients for phonetic matching
-        self.all_ingredients = {ing.lower() for r in self.recipes for ing in r["ingredients"]}
-        self.ingredient_docs = {ing: nlp(ing) for ing in self.all_ingredients}
+class RecipeSearcher:
+    def __init__(self, index_path, idmap_path, db_path):
+        import faiss
+        import pandas as pd
+        import sqlite3
+        from sentence_transformers import SentenceTransformer
 
-    def recommend_all(self, user_input, similarity_threshold=0.85):
-        corrected_input = correct_spelling(user_input)
-        input_ingredients = extract_ingredients(corrected_input)
-        if not input_ingredients:
-            return []
+        self.index = faiss.read_index(index_path)
+        self.idmap = pd.read_parquet(idmap_path)
+        self.conn = sqlite3.connect(db_path)
+        self.model = SentenceTransformer("all-MiniLM-L6-v2")
 
-        dish_type = detect_dish_type(user_input)
-        filtered_recipes = [r for r in self.recipes if r.get("category") == dish_type] if dish_type else self.recipes
+    def search(self, query, top_k=5):
+        # Extract extra filters
+        ingredients = extract_ingredients(query)  # your existing function
+        dish_type = detect_dish_type(query)       # your existing function
 
-        matched_recipes = []
+        # Encode query
+        query_vec = self.model.encode([query])
 
-        for recipe in filtered_recipes:
-            recipe_ings = [ing.lower() for ing in recipe["ingredients"]]
-            ingredient_matches = 0
+        # Search FAISS
+        distances, indices = self.index.search(query_vec, top_k * 2)  # get more to allow filtering
+        results = []
 
-            for user_ing in input_ingredients:
-                # Step 1: Soundex phonetic match
-                #if match_ingredient_phonetic(user_ing, recipe_ings):
-                    #ingredient_matches += 1
-                    #continue
+        for idx, score in zip(indices[0], distances[0]):
+            if idx == -1:
+                continue
 
-                # Step 2: Semantic similarity fallback
-                user_doc = nlp(user_ing)
-                if any(user_doc.similarity(self.ingredient_docs[r_ing]) > similarity_threshold for r_ing in recipe_ings):
-                    ingredient_matches += 1
+            recipe_id = self.idmap.iloc[idx]["recipe_id"]
+            recipe = self.conn.execute(
+                """
+                SELECT id, name, description, ingredients, steps, tags, serving_size, servings, search_terms
+                FROM recipes
+                WHERE id=?
+                """,
+                (recipe_id,)
+            ).fetchone()
 
-            if ingredient_matches > 0:
-                # Match score = fraction of input ingredients matched
-                match_score = ingredient_matches / len(input_ingredients)
-                matched_recipes.append((match_score, recipe))
+            if recipe:
+                # Convert columns to safe strings
+                recipe_safe = [(col or "") if isinstance(col, str) else col for col in recipe]
 
-        # Sort recipes from most to least relevant
-        matched_recipes.sort(key=lambda x: x[0], reverse=True)
-        return matched_recipes
+                # Optional: filter by detected dish type (checks steps as example)
+                if dish_type and dish_type not in recipe_safe[4].lower():
+                    continue
+
+                # Optional: check extracted ingredients match
+                if ingredients:
+                    recipe_ing_list = recipe_safe[3].lower()  # ingredients column
+                    if not any(ing.lower() in recipe_ing_list for ing in ingredients):
+                        continue
+
+                results.append({
+                    "id": recipe_safe[0],
+                    "name": recipe_safe[1],
+                    "description": recipe_safe[2],
+                    "ingredients": recipe_safe[3],
+                    "steps": recipe_safe[4],
+                    "tags": recipe_safe[5],
+                    "serving_size": recipe_safe[6],
+                    "servings": recipe_safe[7],
+                    "search_terms": recipe_safe[8],
+                    "score": float(score)
+                })
+
+            if len(results) >= top_k:
+                break
+
+        return results
