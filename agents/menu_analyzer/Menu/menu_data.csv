@@ -1,0 +1,101 @@
+Item,Category,Calories,Protein,Price,Vegetarian
+Shawarma 1,Fast Food,1172,30,2250,Yes
+Pasta 2,Fast Food,1099,9,1839,No
+Pizza 3,Chinese,375,5,1097,Yes
+Spring Roll 4,Chinese,530,48,446,No
+Burger 5,Seafood,536,8,1473,Yes
+Pasta 6,Fast Food,955,9,2052,Yes
+Fish Fry 7,Italian,1132,34,1939,No
+Curry 8,Dessert,1043,45,1520,Yes
+Spring Roll 9,Italian,940,8,1461,No
+Ice Cream 10,Mexican,1036,26,2951,Yes
+Wrap 11,Mexican,728,19,1574,Yes
+Wrap 12,Chinese,975,40,2357,Yes
+Wrap 13,Seafood,247,30,1553,Yes
+Curry 14,Seafood,238,42,1748,No
+Juice 15,Beverage,432,40,1664,Yes
+Fish Fry 16,Mexican,712,17,1201,No
+Tacos 17,Fast Food,426,33,2735,No
+Biryani 18,Fast Food,310,36,316,Yes
+Pasta 19,Indian,759,7,701,Yes
+Sushi 20,Fast Food,742,40,1241,No
+Biryani 21,Chinese,417,28,1157,No
+Noodles 22,Dessert,492,50,2939,No
+Salad 23,Mexican,965,22,1880,Yes
+Momo 24,Italian,1011,30,1937,Yes
+Pizza 25,Mexican,1123,10,1449,Yes
+Spring Roll 26,Italian,1144,19,1002,Yes
+Spring Roll 27,Seafood,881,38,2225,No
+Cake 28,Dessert,474,16,1178,No
+Fries 29,Chinese,1010,21,2118,No
+Juice 30,Chinese,1030,41,1884,Yes
+Pizza 31,Italian,986,48,2338,No
+Cake 32,Seafood,210,40,2334,Yes
+Pizza 33,Indian,909,38,1799,No
+Tacos 34,Beverage,236,33,1840,Yes
+Pasta 35,Mexican,929,32,1179,No
+Soup 36,Mexican,1067,18,881,Yes
+Fries 37,Dessert,1136,40,586,Yes
+Salad 38,Chinese,1088,16,1243,No
+Salad 39,Seafood,769,37,1424,No
+Salad 40,Mexican,589,18,1984,No
+Pizza 41,Seafood,1167,46,2745,No
+Juice 42,Fast Food,1190,6,2890,No
+Curry 43,Seafood,438,43,1288,Yes
+Soup 44,Indian,637,27,2239,Yes
+Juice 45,Chinese,767,19,1420,Yes
+Wrap 46,Fast Food,1077,45,277,Yes
+Fries 47,Indian,1080,25,1601,Yes
+Biryani 48,Dessert,312,23,1189,No
+Shawarma 49,Italian,718,39,829,No
+Spring Roll 50,Seafood,1000,27,1083,Yes
+Pasta 51,Fast Food,504,46,888,No
+Burger 52,Dessert,1082,24,2527,Yes
+Shawarma 53,Fast Food,744,14,768,No
+Spring Roll 54,Seafood,787,31,2029,Yes
+Pizza 55,Dessert,355,18,2921,No
+Noodles 56,Mexican,260,35,2249,Yes
+Salad 57,Mexican,626,6,1904,Yes
+Momo 58,Chinese,285,26,1100,Yes
+Soup 59,Indian,928,28,2868,No
+Momo 60,Italian,843,11,2756,Yes
+Pasta 61,Indian,816,41,634,No
+Juice 62,Chinese,784,25,392,No
+Soup 63,Seafood,799,47,968,Yes
+Soup 64,Italian,239,28,688,Yes
+Salad 65,Dessert,983,30,1578,Yes
+Shawarma 66,Beverage,1002,39,719,Yes
+Spring Roll 67,Mexican,1013,49,481,Yes
+Fries 68,Indian,363,37,1611,No
+Sushi 69,Italian,695,50,1300,Yes
+Wrap 70,Chinese,1029,24,1488,No
+Ice Cream 71,Chinese,984,30,2758,Yes
+Curry 72,Beverage,398,44,1612,No
+Soup 73,Seafood,845,8,1893,No
+Noodles 74,Dessert,1144,14,518,No
+Spring Roll 75,Beverage,636,20,1594,No
+Wrap 76,Fast Food,495,44,2759,No
+Cake 77,Beverage,1074,38,1905,Yes
+Juice 78,Beverage,1142,47,2838,No
+Sushi 79,Fast Food,920,35,1119,Yes
+Shawarma 80,Italian,333,40,2358,No
+Ice Cream 81,Italian,588,8,1015,Yes
+Momo 82,Mexican,1076,25,2861,No
+Fish Fry 83,Italian,521,25,2788,No
+Wrap 84,Indian,320,30,1996,Yes
+Shawarma 85,Beverage,216,50,1914,Yes
+Biryani 86,Beverage,791,7,1962,No
+Soup 87,Beverage,857,30,2947,Yes
+Cake 88,Fast Food,749,32,2298,No
+Shawarma 89,Seafood,398,10,2677,No
+Cake 90,Dessert,532,22,473,Yes
+Salad 91,Italian,1145,39,891,No
+Fish Fry 92,Italian,563,39,2396,Yes
+Sandwich 93,Seafood,624,20,272,No
+Curry 94,Dessert,604,23,234,Yes
+Burger 95,Beverage,517,32,2038,Yes
+Sandwich 96,Dessert,291,13,1615,No
+Biryani 97,Seafood,1133,31,777,Yes
+Burger 98,Seafood,731,48,2224,No
+Shawarma 99,Fast Food,1183,21,2766,Yes
+Momo 100,Italian,792,13,2663,Yes
