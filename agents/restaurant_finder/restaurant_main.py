@@ -10,7 +10,7 @@ from typing import Dict, List
 from flask_cors import CORS
 
 # Import the restaurant API
-from api import RestaurantAPI
+from restaurant_api import RestaurantAPI
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -151,6 +151,8 @@ class RestaurantNLP:
             entities['price_preference'] = 'low'
         elif any(word in query_lower for word in ['expensive', 'upscale', 'fine dining', 'luxury']):
             entities['price_preference'] = 'high'
+            
+        
         
         return entities
 
