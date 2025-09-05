@@ -1,6 +1,12 @@
 venv/
+<<<<<<< HEAD
 env/
 ENV/
 __pycache__/
 *.pyc
+=======
+__pycache__/
+data/
+venv/
+>>>>>>> Kaveesha
 Menu/
