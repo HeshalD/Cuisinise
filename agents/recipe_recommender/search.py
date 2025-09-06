@@ -31,7 +31,7 @@ class RecipeSearcher:
 
         self.index = faiss.read_index(index_path)
         self.idmap = pd.read_parquet(idmap_path)
-        self.conn = sqlite3.connect(db_path)
+        self.conn = sqlite3.connect(db_path, check_same_thread=False)
         self.model = SentenceTransformer("all-MiniLM-L6-v2")
 
     def search(self, query, top_k=5):

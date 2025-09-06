@@ -38,7 +38,7 @@ def preprocess_input(text: str):
     lemmatized = [lemmatizer.lemmatize(word,pos='v') for word in filtered]
     return " ".join(lemmatized) 
 
-@app.post("/cuisine_check")
+@app.post("/predict")
 def predict_cuisine(data: CuisineInput):
     # Preprocess
     processed = preprocess_input(data.text)

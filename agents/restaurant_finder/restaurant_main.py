@@ -260,7 +260,7 @@ def search_restaurants_post():
             'error': f'Internal server error: {str(e)}'
         }), 500
 
-@app.route('/api/restaurants/search', methods=['GET'])
+@app.route('/search', methods=['GET'])
 def search_restaurants_get():
     """GET endpoint for restaurant search with URL parameters"""
     query = request.args.get('query', '').strip()
@@ -275,15 +275,15 @@ def search_restaurants_get():
     result = finder.process_query(query)
     return jsonify(result)
 
-@app.route('/api/restaurants/list', methods=['GET'])
-def list_all_restaurants():
-    """Get all available restaurants in the database"""
-    return jsonify({
-        'success': True,
-        'restaurants': finder.restaurant_api.get_all_restaurants(),
-        'total_count': len(finder.restaurant_api.get_all_restaurants()),
-        'cuisines_available': finder.restaurant_api.get_supported_cuisines()
-    })
+#@app.route('/api/restaurants/list', methods=['GET'])
+#def list_all_restaurants():
+#    """Get all available restaurants in the database"""
+#    return jsonify({
+#        'success': True,
+#       'restaurants': finder.restaurant_api.get_all_restaurants(),
+#        'total_count': len(finder.restaurant_api.get_all_restaurants()),
+#        'cuisines_available': finder.restaurant_api.get_supported_cuisines()
+#    })
 
 @app.route('/api/restaurants/<int:restaurant_id>', methods=['GET'])
 def get_restaurant_by_id(restaurant_id):
