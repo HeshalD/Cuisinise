@@ -5,7 +5,6 @@ import requests
 
 class RestaurantAPI:
     def __init__(self):
-        
         self.cuisine_keywords = cuisine_keywords
         self.location_indicators = location_indicators
         self.restaurants = restaurants
@@ -89,12 +88,8 @@ class RestaurantAPI:
         return [r for r in self.restaurants if r['price_range'] == price_range]
 
     def search_restaurants(self, entities: Dict) -> List[Dict]:
-        """Search and rank restaurants using only OSM"""
+        """Search and rank restaurants using OSM and ensure FastAPI model compatibility."""
         results = []
-
-        # Price range mapping (not usually available in OSM, but kept for compatibility)
-        price_low = ['$']
-        price_high = ['$$', '$$$']
 
         # --- STEP 1: Require a location ---
         if not entities.get("location"):
@@ -121,7 +116,7 @@ class RestaurantAPI:
             location_matched = False
 
             # Cuisine matching
-            if entities['cuisine']:
+            if entities.get('cuisine'):
                 if restaurant['cuisine'] and restaurant['cuisine'].lower() == entities['cuisine'].lower():
                     match_score += 10
                     cuisine_matched = True
@@ -134,8 +129,8 @@ class RestaurantAPI:
             else:
                 cuisine_matched = True  # allow location-only searches
 
-            # Location matching (we already geocoded, so boost if text matches too)
-            if entities['location'] and restaurant.get("location"):
+            # Location matching
+            if entities.get('location') and restaurant.get("location"):
                 location_query = entities['location'].lower().strip()
                 rest_loc = restaurant['location'].lower()
 
@@ -154,17 +149,31 @@ class RestaurantAPI:
                 else:
                     match_score -= 5
             else:
-                location_matched = True  # allow cuisine-only search
+                location_matched = True
 
-            # OSM usually has no price/rating → safe to skip
-
-            # Only keep meaningful results
             if match_score > 0 and (cuisine_matched or location_matched):
                 restaurant_copy = restaurant.copy()
                 restaurant_copy['match_score'] = round(match_score, 1)
+
+                # --- Ensure required fields for FastAPI Pydantic model ---
+                if "price" not in restaurant_copy or restaurant_copy["price"] is None:
+                    price_str_map = {
+                        '$': '$',
+                        '$$': '$$',
+                        '$$$': '$$$'
+                    }
+                    restaurant_copy["price"] = price_str_map.get(restaurant_copy.get("price_range"), "")
+
+                if "rating" not in restaurant_copy or restaurant_copy["rating"] is None:
+                    restaurant_copy["rating"] = 0.0
+
+                # Ensure strings are not None
+                restaurant_copy["cuisine"] = restaurant_copy.get("cuisine") or "unknown"
+                restaurant_copy["location"] = restaurant_copy.get("location") or ""
+                restaurant_copy["name"] = restaurant_copy.get("name") or "(no name)"
+
                 results.append(restaurant_copy)
 
-        # --- STEP 3: Sort ---
+        # --- STEP 3: Sort by match score ---
         results.sort(key=lambda x: x['match_score'], reverse=True)
         return results
-
