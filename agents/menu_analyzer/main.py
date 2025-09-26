@@ -3,7 +3,7 @@ from menu_analyzer import ask_user, nlp_query
 
 def main():
     """Main NLP Menu Analyzer for your existing data"""
-    print("🧠 == NLP MENU ANALYZER FOR YOUR DATA ===")
+    print("🧠 === NLP MENU ANALYZER FOR YOUR DATA ===")
     print("Uses YOUR existing CSV file with NLP processing")
     print("✨ Now with downloadable results!")
     print("="*60)
