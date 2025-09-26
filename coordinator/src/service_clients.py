@@ -6,11 +6,17 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-CUISINE_BASE = os.getenv("CUISINE_BASE_URL")
-RESTAURANT_BASE = os.getenv("RESTAURANT_BASE_URL")
-MENU_BASE = os.getenv("MENU_BASE_URL")
-RECIPE_BASE = os.getenv("RECIPE_BASE_URL")
+CUISINE_BASE = os.getenv("CUISINE_BASE_URL", "http://127.0.0.1:8001")
+RESTAURANT_BASE = os.getenv("RESTAURANT_BASE_URL", "http://127.0.0.1:8002")
+MENU_BASE = os.getenv("MENU_BASE_URL", "http://127.0.0.1:8003")
+RECIPE_BASE = os.getenv("RECIPE_BASE_URL", "http://127.0.0.1:8004")
 TOKEN = os.getenv("INTERNAL_TOKEN", "")
+
+print(f"[DEBUG] Service URLs configured:")
+print(f"[DEBUG] CUISINE_BASE: {CUISINE_BASE}")
+print(f"[DEBUG] RESTAURANT_BASE: {RESTAURANT_BASE}")
+print(f"[DEBUG] MENU_BASE: {MENU_BASE}")
+print(f"[DEBUG] RECIPE_BASE: {RECIPE_BASE}")
 
 HEADERS = {"X-Internal-Token": TOKEN} if TOKEN else {}
 
@@ -38,9 +44,15 @@ async def call_menu_analyze(text: str) -> Dict[str, Any]:
         r.raise_for_status()
         return r.json()
 
-async def call_recipe_recommend(cuisine: Optional[str], ingredients: Optional[list[str]], top_k: int) -> Dict[str, Any]:
-    payload = {"cuisine": cuisine, "ingredients": ingredients, "top_k": top_k}
+async def call_recipe_recommend(query: str, top_k: int) -> Dict[str, Any]:
+    payload = {"query": query, "top_k": top_k}
+    print(f"[DEBUG] Calling recipe service at: {RECIPE_BASE}/recommend")
+    print(f"[DEBUG] Payload: {payload}")
     async with httpx.AsyncClient(timeout=timeout) as client:
         r = await client.post(f"{RECIPE_BASE}/recommend", json=payload, headers=HEADERS)
-        r.raise_for_status()
+        body_text = r.text
+        print(f"[DEBUG] Response status: {r.status_code}")
+        print(f"[DEBUG] Response body: {body_text[:200]}...")
+        if r.status_code >= 400:
+            raise Exception(f"Recipe service error {r.status_code}: {body_text}")
         return r.json()

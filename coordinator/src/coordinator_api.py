@@ -59,8 +59,7 @@ async def handle_query(req: QueryRequest):
 
     if "recommend_recipe" in plan.intents:
         tasks.append(_wrap("recipes", call_recipe_recommend(
-            cuisine=plan.cuisine,
-            ingredients=None,  # can parse from query later
+            query=req.query,
             top_k=plan.top_k
         )))
 

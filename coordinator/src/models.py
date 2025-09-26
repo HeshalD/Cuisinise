@@ -6,8 +6,16 @@ Intent = Literal["classify_cuisine", "find_restaurant", "analyze_menu", "recomme
 
 class QueryRequest(BaseModel):
     query: str
-    location: Optional[str] = None
-    top_k: int = Field(default=5, ge=1, le=20)
+    location: Optional[str] = Field(default=None, description="Optional location (city/area). Omit to use defaults.")
+    top_k: int = Field(default=5, ge=1, le=20, description="Max results to return.")
+
+    class Config:
+        json_schema_extra = {
+            "examples": [
+                {"query": "Analyze nutrition for Mediterranean salad", "top_k": 3},
+                {"query": "Find Italian restaurants near Colombo", "location": "Colombo", "top_k": 5}
+            ]
+        }
 
 class Plan(BaseModel):
     intents: List[Intent]
