@@ -1,6 +1,6 @@
 import os
 import requests
-from fastapi import FastAPI, Query, HTTPException
+from fastapi import FastAPI, Query, HTTPException, Request
 from pydantic import BaseModel
 from typing import List, Optional
 import sqlite3
@@ -61,11 +61,29 @@ class RecipeQuery(BaseModel):
 
 
 @app.post("/recommend", response_model=List[RecipeResult])
-def search_recipes(data: RecipeQuery):
+async def search_recipes(data: RecipeQuery, request: Request):
+    # Temporary debug logging
+    try:
+        body = await request.body()
+        print("[recipe_recommender] Incoming /recommend body:", body.decode("utf-8", errors="ignore"))
+    except Exception:
+        pass
     try:
         results = searcher.search(data.query, top_k=data.top_k)
         if not results:
             raise HTTPException(status_code=404, detail="No matching recipes found.")
         return results
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/status")
+def status():
+    try:
+        info = searcher.get_status() if hasattr(searcher, "get_status") else {}
+        return {
+            "ok": True,
+            "devices": info,
+        }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
