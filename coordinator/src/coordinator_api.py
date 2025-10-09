@@ -7,7 +7,8 @@ from .models import QueryRequest, CoordinatorResponse
 from .router import plan_from_query
 from .service_clients import (
     call_cuisine_predict, call_restaurant_search,
-    call_menu_analyze, call_recipe_recommend
+    call_menu_analyze, call_recipe_recommend,
+    call_spell_check, send_spell_feedback
 )
 
 app = FastAPI(title="Food Explorer Coordinator")
@@ -27,7 +28,48 @@ def health():
 
 @app.post("/query", response_model=CoordinatorResponse)
 async def handle_query(req: QueryRequest):
-    # 1) Parse query → plan
+    # 0) Spell check pre-processing
+    spell_meta = {
+        "spell_checked": False,
+        "original_query": req.query,
+        "corrected_query": None,
+        "correction_confidence": None,
+        "correction_candidates": None,
+    }
+    spell_error = None
+    try:
+        spell = await call_spell_check(req.query, req.user_id, top_k=3)
+        spell_meta["spell_checked"] = True
+        spell_meta["corrected_query"] = spell.get("corrected")
+        spell_meta["correction_candidates"] = spell.get("candidates")
+        # crude confidence: top candidate score if present
+        cands = spell.get("candidates") or []
+        if cands:
+            spell_meta["correction_confidence"] = float(cands[0].get("score", 0.0))
+        # If changed and not auto-accept, return suggestion for confirmation
+        if spell.get("changed") and not req.auto_accept_spell:
+            return CoordinatorResponse(
+                plan=None,  # no plan yet; waiting for user confirmation
+                results={"message": "Did you mean...?"},
+                **spell_meta
+            )
+        # Auto-accept path or unchanged
+        if spell.get("changed") and req.auto_accept_spell:
+            # record positive feedback for auto-accept
+            try:
+                await send_spell_feedback(req.query, spell.get("corrected"), True, req.user_id)
+            except Exception:
+                pass
+            req.query = spell.get("corrected")
+    except Exception as e:
+        # proceed without spell correction on failure; log for diagnosis
+        spell_error = str(e)
+        try:
+            print(f"[WARN] Spell check failed: {spell_error}")
+        except Exception:
+            pass
+
+    # 1) Parse query → plan using possibly corrected query
     plan = plan_from_query(req.query, req.location, req.top_k)
 
     results = {}
@@ -72,7 +114,9 @@ async def handle_query(req: QueryRequest):
             else:
                 results[key] = payload
 
-    return CoordinatorResponse(plan=plan, results=results)
+    if spell_error:
+        results["spell_error"] = spell_error
+    return CoordinatorResponse(plan=plan, results=results, **spell_meta)
 
 async def _wrap(key: str, coro):
     try:

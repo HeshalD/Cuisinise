@@ -1,0 +1,13 @@
+fastapi
+uvicorn
+spacy
+autocorrect
+symspellpy
+transformers
+sentence-transformers
+scikit-learn
+nltk
+numpy
+pydantic
+
+

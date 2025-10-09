@@ -8,6 +8,8 @@ class QueryRequest(BaseModel):
     query: str
     location: Optional[str] = Field(default=None, description="Optional location (city/area). Omit to use defaults.")
     top_k: int = Field(default=5, ge=1, le=20, description="Max results to return.")
+    user_id: Optional[str] = Field(default=None, description="Optional user id for personalization/feedback.")
+    auto_accept_spell: bool = Field(default=False, description="If true, auto-accept top spell correction and proceed.")
 
     class Config:
         json_schema_extra = {
@@ -28,3 +30,9 @@ class Plan(BaseModel):
 class CoordinatorResponse(BaseModel):
     plan: Plan
     results: Dict[str, Any]
+    # Spell-check information for UX confirmation loop
+    spell_checked: Optional[bool] = False
+    original_query: Optional[str] = None
+    corrected_query: Optional[str] = None
+    correction_confidence: Optional[float] = None
+    correction_candidates: Optional[List[Dict[str, Any]]] = None
