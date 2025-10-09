@@ -9,7 +9,7 @@ class QueryRequest(BaseModel):
     location: Optional[str] = Field(default=None, description="Optional location (city/area). Omit to use defaults.")
     top_k: int = Field(default=5, ge=1, le=20, description="Max results to return.")
     user_id: Optional[str] = Field(default=None, description="Optional user id for personalization/feedback.")
-    auto_accept_spell: bool = Field(default=False, description="If true, auto-accept top spell correction and proceed.")
+    auto_accept_spell: bool = Field(default=True, description="If true, auto-accept top spell correction and proceed.")
 
     class Config:
         json_schema_extra = {

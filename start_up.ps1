@@ -9,7 +9,7 @@ function Start-Agent {
         [string]$VenvPath,
         [string]$Command
     )
-    Start-Process powershell -ArgumentList "cd '$Path'; & '$VenvPath\Scripts\Activate.ps1'; $Command"
+    Start-Process powershell -ArgumentList "cd '$Path'; `$env:OPENAI_API_KEY='${env:OPENAI_API_KEY}'; & '$VenvPath\Scripts\Activate.ps1'; $Command"
 }
 
 # --- 1. Cuisine Classifier Agent ---
@@ -37,7 +37,13 @@ Start-Agent -Path "agents\spell_corrector" `
              -VenvPath "venv" `
              -Command "uvicorn spell_api:app --host 127.0.0.1 --port 8005 --reload"
 
-# --- 6. Coordinator ---
-Start-Agent -Path "coordinator" `
-             -VenvPath "src\venv" `
-             -Command "uvicorn src.coordinator_api:app --host 127.0.0.1 --port 8000 --reload"
+# --- 6. Spell Corrector Agent ---
+Start-Agent -Path "agents\youtube_recipe_recommender" `
+             -VenvPath "venv" `
+             -Command "uvicorn youtube_api:app --host 127.0.0.1 --port 8006 --reload"
+
+             
+# --- 7. Coordinator ---
+Start-Agent -Path "." `
+             -VenvPath "coordinator\src\venv" `
+             -Command "uvicorn coordinator.src.coordinator_api:app --host 127.0.0.1 --port 8000 --reload"
