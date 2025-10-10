@@ -4,12 +4,17 @@ from pydantic import BaseModel, Field
 
 Intent = Literal["classify_cuisine", "find_restaurant", "analyze_menu", "recommend_recipe"]
 
+class HistoryMessage(BaseModel):
+    role: str
+    text: str
+
 class QueryRequest(BaseModel):
     query: str
     location: Optional[str] = Field(default=None, description="Optional location (city/area). Omit to use defaults.")
     top_k: int = Field(default=5, ge=1, le=20, description="Max results to return.")
     user_id: Optional[str] = Field(default=None, description="Optional user id for personalization/feedback.")
     auto_accept_spell: bool = Field(default=True, description="If true, auto-accept top spell correction and proceed.")
+    history: Optional[List[HistoryMessage]] = Field(default=[], description="Conversation history for context.")
 
     class Config:
         json_schema_extra = {

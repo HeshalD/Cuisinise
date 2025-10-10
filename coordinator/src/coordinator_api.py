@@ -5,6 +5,8 @@ from fastapi.middleware.cors import CORSMiddleware
 import asyncio
 import os
 from dotenv import load_dotenv
+from typing import List, Optional
+from pydantic import BaseModel
 
 load_dotenv()
 
@@ -13,7 +15,7 @@ client = OpenAI(
     api_key=os.getenv("OPENROUTER_API_KEY"),
 )
 
-from .models import QueryRequest, CoordinatorResponse
+from .models import QueryRequest, CoordinatorResponse, HistoryMessage
 from .router import plan_from_query
 from .service_clients import (
     call_cuisine_predict, call_restaurant_search,
@@ -39,6 +41,8 @@ def health():
 
 @app.post("/query", response_model=CoordinatorResponse)
 async def handle_query(req: QueryRequest):
+    print(f"[Coordinator] Received query: {req.query}")
+    print(f"[Coordinator] Context length: {len(req.history)}")
     # 0) Spell check pre-processing
     spell_meta = {
         "spell_checked": False,
@@ -127,7 +131,7 @@ async def handle_query(req: QueryRequest):
                 results[key] = payload
 
     try:
-        formatted_summary = await format_results_with_llm(req.query, plan, results)
+        formatted_summary = await format_results_with_llm(req.query, plan, results, req.history or [])
         results["formatted_summary"] = formatted_summary
     except Exception as e:
         results["llm_format_error"] = str(e)
@@ -143,11 +147,18 @@ async def _wrap(key: str, coro):
     except Exception as e:
         return key, e
 
-async def format_results_with_llm(query: str, plan, results: dict):
+async def format_results_with_llm(query: str, plan, results: dict, history: list):
     """
     Uses an OpenAI LLM to summarize and format messy multi-agent results
     into structured, human-readable text.
     """
+
+    context_text = ""
+    if history:
+        context_text = "\n".join(
+            [f"{m.role.capitalize()}: {m.text}" for m in history[-10:]]
+        )
+
     # Prepare the prompt
     prompt = f"""
 You are the "Food Explorer" AI assistant. You receive raw outputs from several specialized agents:
@@ -158,12 +169,17 @@ You are the "Food Explorer" AI assistant. You receive raw outputs from several s
 - YouTube video searcher
 - Spell checker
 
+Conversation so far:
+{context_text}
+
 Your task:
 - Combine and summarize the data clearly.
 - Present it in readable form for a user.
 - Use headings and bullet points.
 - If an agent failed, note it briefly.
 - Include restaurant names, cuisines, menu insights, recipes, and video titles if available.
+-Respond naturally as if continuing the conversation.
+-Keep it contextual, concise, and friendly.
 
 ---
 

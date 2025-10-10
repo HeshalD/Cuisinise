@@ -34,3 +34,5 @@ Set-ExecutionPolicy RemoteSigned -Scope Process
 
 //Actual startup command
 .\start_up.ps1
+
+//Add voice recoginistion 
