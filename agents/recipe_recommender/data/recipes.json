@@ -1,0 +1,122 @@
+[
+  {
+    "title": "Coconut Lentil Curry",
+    "ingredients": ["lentils", "coconut milk", "onion", "garlic", "spices"],
+    "category": "curry",
+    "instructions": "Cook lentils until soft, add coconut milk and spices, simmer."
+  },
+  {
+    "title": "Chicken Fried Rice",
+    "ingredients": ["chicken", "rice", "soy sauce", "egg", "vegetables"],
+    "category": "rice dish",
+    "instructions": "Stir fry chicken, add rice, vegetables, soy sauce, and egg."
+  },
+  {
+    "title": "Vegetable Stir Fry",
+    "ingredients": ["broccoli", "carrot", "capsicum", "soy sauce", "garlic"],
+    "category": "stir fry",
+    "instructions": "Stir fry vegetables in oil, add garlic and soy sauce."
+  },
+  {
+    "title": "Spaghetti Bolognese",
+    "ingredients": ["spaghetti", "ground beef", "tomato sauce", "onion", "garlic"],
+    "category": "pasta",
+    "instructions": "Cook beef with onion and garlic, add tomato sauce, serve with spaghetti."
+  },
+  {
+    "title": "Tomato Soup",
+    "ingredients": ["tomatoes", "onion", "garlic", "vegetable broth", "cream"],
+    "category": "soup",
+    "instructions": "Simmer tomatoes with onion and garlic, blend, and add cream."
+  },
+  {
+    "title": "Grilled Cheese Sandwich",
+    "ingredients": ["bread", "cheese", "butter"],
+    "category": "sandwich",
+    "instructions": "Butter bread slices, add cheese, grill until golden."
+  },
+  {
+    "title": "Pancakes",
+    "ingredients": ["flour", "egg", "milk", "sugar", "butter"],
+    "category": "dessert",
+    "instructions": "Mix ingredients, pour batter on pan, flip when bubbles form."
+  },
+  {
+    "title": "Beef Tacos",
+    "ingredients": ["tortilla", "ground beef", "lettuce", "cheese", "salsa"],
+    "category": "tacos",
+    "instructions": "Cook beef, fill tortillas with beef, lettuce, cheese, and salsa."
+  },
+  {
+    "title": "Caesar Salad",
+    "ingredients": ["lettuce", "croutons", "parmesan", "chicken", "caesar dressing"],
+    "category": "salad",
+    "instructions": "Mix lettuce, croutons, parmesan, chicken, and dressing."
+  },
+  {
+    "title": "Omelette",
+    "ingredients": ["egg", "milk", "onion", "cheese", "pepper"],
+    "category": "breakfast",
+    "instructions": "Beat eggs with milk, cook in pan, add onion, cheese, and pepper."
+  },
+  {
+    "title": "Mashed Potatoes",
+    "ingredients": ["potatoes", "butter", "milk", "salt", "pepper"],
+    "category": "side dish",
+    "instructions": "Boil potatoes, mash with butter, milk, salt, and pepper."
+  },
+  {
+    "title": "Chicken Curry",
+    "ingredients": ["chicken", "onion", "garlic", "ginger", "curry powder"],
+    "category": "curry",
+    "instructions": "Cook chicken with onion, garlic, and ginger, add curry powder and simmer."
+  },
+  {
+    "title": "Fish Tacos",
+    "ingredients": ["fish", "tortilla", "cabbage", "lime", "salsa"],
+    "category": "tacos",
+    "instructions": "Cook fish, serve in tortilla with cabbage, lime, and salsa."
+  },
+  {
+    "title": "Margarita Pizza",
+    "ingredients": ["pizza dough", "tomato sauce", "mozzarella", "basil", "olive oil"],
+    "category": "pizza",
+    "instructions": "Spread tomato sauce on dough, top with mozzarella and basil, bake."
+  },
+  {
+    "title": "French Toast",
+    "ingredients": ["bread", "egg", "milk", "sugar", "cinnamon"],
+    "category": "breakfast",
+    "instructions": "Dip bread in egg mixture, cook on pan until golden."
+  },
+  {
+    "title": "Fried Noodles",
+    "ingredients": ["noodles", "soy sauce", "vegetables", "egg", "chicken"],
+    "category": "noodles",
+    "instructions": "Stir fry noodles with vegetables, chicken, soy sauce, and egg."
+  },
+  {
+    "title": "Chili Con Carne",
+    "ingredients": ["ground beef", "beans", "tomatoes", "onion", "chili powder"],
+    "category": "curry",
+    "instructions": "Cook beef and onion, add beans, tomatoes, and chili powder, simmer."
+  },
+  {
+    "title": "Banana Smoothie",
+    "ingredients": ["banana", "milk", "honey", "yogurt"],
+    "category": "beverage",
+    "instructions": "Blend banana with milk, honey, and yogurt until smooth."
+  },
+  {
+    "title": "Egg Fried Rice",
+    "ingredients": ["rice", "egg", "soy sauce", "onion", "peas"],
+    "category": "rice dish",
+    "instructions": "Stir fry rice with egg, onion, peas, and soy sauce."
+  },
+  {
+    "title": "Mushroom Risotto",
+    "ingredients": ["rice", "mushroom", "onion", "parmesan", "vegetable broth"],
+    "category": "rice dish",
+    "instructions": "Cook rice slowly with broth, add mushrooms, onion, and parmesan."
+  }
+]
