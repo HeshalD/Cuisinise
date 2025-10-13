@@ -10,9 +10,13 @@ from pydantic import BaseModel
 
 load_dotenv()
 
+LLM_BASE_URL = os.getenv("OPENAI_BASE_URL", "https://openrouter.ai/api/v1")
+LLM_API_KEY = os.getenv("OPENAI_API_KEY") or os.getenv("OPENROUTER_API_KEY")
+LLM_MODEL = os.getenv("LLM_MODEL", "openai/gpt-4o")
+
 client = OpenAI(
-    base_url="https://openrouter.ai/api/v1",
-    api_key=os.getenv("OPENROUTER_API_KEY"),
+    base_url=LLM_BASE_URL,
+    api_key=LLM_API_KEY,
 )
 
 from .models import QueryRequest, CoordinatorResponse, HistoryMessage
@@ -56,7 +60,7 @@ async def generate_title(req: TitleRequest):
 
     try:
         response = client.chat.completions.create(
-            model="openai/gpt-4o",
+            model=LLM_MODEL,
             messages=[
                 {"role": "system", "content": "You generate short, descriptive chat titles. 3-6 words, sentence case, no trailing punctuation."},
                 {"role": "user", "content": prompt},
@@ -238,7 +242,7 @@ Now create a concise, readable response for the user:
 
     try:
         response = client.chat.completions.create(
-            model="openai/gpt-4o",  # OpenRouter model route
+            model=LLM_MODEL,  # configurable model
             messages=[
                 {"role": "system", "content": "You are a helpful and organized summarization assistant."},
                 {"role": "user", "content": prompt},

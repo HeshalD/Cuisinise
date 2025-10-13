@@ -194,9 +194,8 @@ def _lazy_imports():
             from sentence_transformers import SentenceTransformer as _ST
             print(f"Loading sentence transformer on {torch_device_str}...")
             globals()["sentence_model"] = _ST(
-                "all-MiniLM-L6-v2", 
-                device=torch_device_str,
-                device_map="auto" if torch_device_str.startswith("cuda") else None
+                "all-MiniLM-L6-v2",
+                device=torch_device_str
             )
             print(f"Sentence transformer loaded on {torch_device_str}")
         except Exception as e:

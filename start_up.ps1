@@ -9,7 +9,7 @@ function Start-Agent {
         [string]$VenvPath,
         [string]$Command
     )
-    Start-Process powershell -ArgumentList "cd '$Path'; `$env:OPENROUTER_API_KEY='${env:OPENROUTER_API_KEY}'; & '$VenvPath\Scripts\Activate.ps1'; $Command"
+    Start-Process powershell -ArgumentList "cd '$Path'; `$env:OPENROUTER_API_KEY='${env:OPENROUTER_API_KEY}'; `$env:OPENAI_BASE_URL='${env:OPENAI_BASE_URL}';`$env:LLM_MODEL='${env:LLM_MODEL}'; & '$VenvPath\Scripts\Activate.ps1'; $Command"
 }
 
 # --- 1. Cuisine Classifier Agent ---
