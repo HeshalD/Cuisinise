@@ -9,10 +9,9 @@ export default function ChatListSidebar({ onSelectChat, selectedChatId }) {
   }, []);
 
   return (
-    <div className="w-64 bg-gray-900 text-white h-screen overflow-y-auto border-r border-gray-700">
-      <div className="p-4 text-xl font-bold border-b border-gray-700">Food Explorer</div>
+    <div className="w-64 bg-gray-700 text-white h-screen overflow-y-auto pt-[20px]">
       <button
-        className="w-full p-3 text-left hover:bg-gray-800"
+        className="w-full p-3 text-left hover:bg-[#7a9b9e] hover:rounded-[10px]"
         onClick={() => onSelectChat(null)} // new chat
       >
         + New Chat
@@ -22,8 +21,8 @@ export default function ChatListSidebar({ onSelectChat, selectedChatId }) {
         <div
           key={chat._id}
           onClick={() => onSelectChat(chat)}
-          className={`p-3 cursor-pointer hover:bg-gray-800 ${
-            selectedChatId === chat._id ? "bg-gray-800" : ""
+          className={`p-3 cursor-pointer mb-[10px] hover:bg-[#7a9b9e] transition-colors duration-250 ease-in-out hover:rounded-[10px]  ${
+            selectedChatId === chat._id ? "bg-[#7a9b9e] hover:rounded-[10px] rounded-[10px]" : ""
           }`}
         >
           {chat.title || "Untitled Chat"}

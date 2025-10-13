@@ -15,8 +15,8 @@ export default function ChatMessage({ msg }) {
     return patterns.some((p) => p.test(href));
   };
 
-  const bubbleBase = "p-3 rounded-2xl max-w-lg whitespace-pre-wrap break-words";
-  const bubbleTheme = isUser ? "bg-blue-600 text-white" : "bg-gray-200 text-gray-900";
+  const bubbleBase = "p-3 max-w-lg whitespace-pre-wrap break-words";
+  const bubbleTheme = isUser ? "bg-green-400 text-white rounded-br-2xl rounded-bl-2xl rounded-tl-2xl" : "bg-white text-gray-900 rounded-br-2xl rounded-bl-2xl rounded-tr-2xl";
 
   return (
     <div className={`flex ${isUser ? "justify-end" : "justify-start"}`}>
@@ -29,7 +29,7 @@ export default function ChatMessage({ msg }) {
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`${isVideoLink(href) ? "bg-red-100 text-red-700 px-1.5 py-0.5 rounded font-medium" : "text-blue-700 underline"} break-words`}
+                className={`${isVideoLink(href) ? "bg-red-100 text-red-700 px-1.5 py-0.5 rounded font-medium" : "text-green-400 underline"} break-words`}
                 {...props}
               >
                 {children}

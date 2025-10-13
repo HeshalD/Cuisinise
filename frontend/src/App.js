@@ -20,14 +20,14 @@ function App() {
         <Routes>
           <Route path="/" element={<Login/>}/>
           <Route path="/signup" element={<Signup/>}/>
-          <Route path="/dashboard" element={<ChatDashboard/>}/>
+          <Route path="/chat" element={<ChatDashboard/>}/>
           <Route path='/header' element={<Header/>}/>
           <Route path='/footer' element={<Footer/>}/>
           <Route path='/hero' element={<HomePageHeroSection/>}/>
           <Route path='/hiw' element={<HomePageHowItWorks/>}/>
           <Route path='/home' element={<Homepage/>}/>
           <Route path='wcu' element={<HomePageWhyChooseUsSection/>}/>
-          <Route path='/how' element={<HowCuisiniseWorksPage/>}/>
+          <Route path='/how-it-works' element={<HowCuisiniseWorksPage/>}/>
         </Routes>
       </div>
     </AuthProvider>

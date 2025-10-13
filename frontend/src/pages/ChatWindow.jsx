@@ -54,7 +54,7 @@ export default function ChatWindow({ chat, onChatCreated }) {
   };
 
   return (
-    <div className="flex flex-col flex-1 h-screen bg-gray-50">
+    <div className="flex flex-col flex-1 h-screen bg-[#d4ebe0]">
       <div className="flex-1 overflow-y-auto p-4 space-y-3">
         {!chat && (
           <ChatMessage key="greeting" msg={greetingMessage} />

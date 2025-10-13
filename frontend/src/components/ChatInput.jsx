@@ -10,7 +10,7 @@ export default function ChatInput({ onSend, disabled }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="p-4 border-t bg-white flex">
+    <form onSubmit={handleSubmit} className="p-4 mb-[20px] bg-[#d4ebe0] border-t border-[#d4ebe0] border-b flex">
       <input
         type="text"
         value={text}
@@ -22,7 +22,7 @@ export default function ChatInput({ onSend, disabled }) {
       <button
         type="submit"
         disabled={disabled}
-        className="ml-2 px-4 py-2 bg-blue-600 text-white rounded-xl"
+        className="ml-2 px-4 py-2 bg-green-400 text-white rounded-xl"
       >
         Send
       </button>

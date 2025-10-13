@@ -8,14 +8,14 @@ const Header = () => {
     <header className="bg-gradient-to-br from-[#D7FDF0] to-[#B2FFD6] py-2 px-0 shadow-md shadow-rounded-full ml-[10px] mr-[10px] rounded-[40px] mb-[20px]">
       <div className="max-w-7xl mx-auto flex items-center">
         
-            <Link to="/">
+            <Link to="/home">
               <img src={logoImage} alt='Cusinise Logo' className="w-48 h-16 object-contain ml-[-100px]"/>
             </Link>
 
         {/* Navigation */}
         <nav className="ml-auto flex items-center gap-12 justify-end">
           <NavLink
-            to="/"
+            to="/home"
             end
             className={({ isActive }) => `font-gilroyMedium text-lg transition-colors duration-150 ease-in-out ${isActive ? 'text-[#5DC774]' : 'text-[#4C6E6B] hover:text-[#5DC774]'}`}
           >
@@ -28,7 +28,7 @@ const Header = () => {
             About
           </NavLink>
           <NavLink
-            to="/weather"
+            to="/chat"
             className={({ isActive }) => `font-gilroyMedium text-lg transition-colors duration-150 ease-in-out ${isActive ? 'text-[#5DC774]' : 'text-[#4C6E6B] hover:text-[#5DC774]'}`}
           >
             Chat
@@ -42,7 +42,7 @@ const Header = () => {
 
 
           <NavLink
-            to="/how-it-works"
+            to="/profile"
             className={({ isActive }) => `font-gilroyMedium text-lg transition-colors duration-150 ease-in-out ${isActive ? 'text-[#5DC774]' : 'text-[#4C6E6B] hover:text-[#5DC774] mr-[-80px]'}`}
           >
             <FaUser size={25} />
