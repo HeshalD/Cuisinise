@@ -10,6 +10,7 @@ import HomePageHeroSection from './components/HomePageHeroSection';
 import HomePageHowItWorks from './components/HomePageHowItWorks';
 import Homepage from './pages/Homepage';
 import HomePageWhyChooseUsSection from './components/HomePageWhyChooseUsSection';
+import HowCuisiniseWorksPage from './pages/HowCuisiniseWorksPage';
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
           <Route path='/hiw' element={<HomePageHowItWorks/>}/>
           <Route path='/home' element={<Homepage/>}/>
           <Route path='wcu' element={<HomePageWhyChooseUsSection/>}/>
+          <Route path='/how' element={<HowCuisiniseWorksPage/>}/>
         </Routes>
       </div>
     </AuthProvider>
