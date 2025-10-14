@@ -7,7 +7,8 @@ import { useRef, useState } from "react";
 const SpotlightCard = ({
   children,
   className = "",
-  spotlightColor = "#0f3f72",
+  spotlightColor = "#7a9b9e",
+  style = {},
 }) => {
   const divRef = useRef(null);
   const [isFocused, setIsFocused] = useState(false);
@@ -47,7 +48,8 @@ const SpotlightCard = ({
       onBlur={handleBlur}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className={`relative rounded-3xl border border-white bg-[#0f3f72] overflow-hidden p-8 ${className} flex flex-col items-center justify-center`}
+      className={`relative border border-white bg-[#7a9b9e] overflow-hidden p-8 ${className} flex flex-col items-center justify-center`}
+      style={style}
     >
       <div
         className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 ease-in-out"
