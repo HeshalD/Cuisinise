@@ -7,7 +7,10 @@ import sqlite3
 
 from search import RecipeSearcher
 
-DATA_DIR = "data"
+DATA_DIR = os.getenv("DATA_DIR", "/data")
+FAISS_PATH = os.path.join(DATA_DIR, "faiss.index")
+IDMAP_PATH = os.path.join(DATA_DIR, "idmap.parquet")
+SQLITE_PATH = os.path.join(DATA_DIR, "recipes.sqlite")
 os.makedirs(DATA_DIR, exist_ok=True)
 
 # ------------------- Download helper -------------------
@@ -22,9 +25,9 @@ def download_file(file_path, url):
 
 # ------------------- Files + URLs ----------------------
 FILES_URLS = {
-    "faiss.index": "https://drive.google.com/uc?export=download&id=1Ew0tW2Dpa1-Iq4jPo68WGKscrq6FISeF",
-    "recipes.sqlite": "https://drive.google.com/uc?export=download&id=1yIxD1jV-IkLrEXKldJsoqJ-UDytBImkY",
-    "idmap.parquet": "https://drive.google.com/uc?export=download&id=1YN2AdbLiZfD8BTENLLWduOdzY6F4dJ_m",
+    os.path.basename(FAISS_PATH): "https://drive.google.com/uc?export=download&id=1Ew0tW2Dpa1-Iq4jPo68WGKscrq6FISeF",
+    os.path.basename(SQLITE_PATH): "https://drive.google.com/uc?export=download&id=1yIxD1jV-IkLrEXKldJsoqJ-UDytBImkY",
+    os.path.basename(IDMAP_PATH): "https://drive.google.com/uc?export=download&id=1YN2AdbLiZfD8BTENLLWduOdzY6F4dJ_m",
 }
 
 # ------------------- Check and download ----------------
@@ -37,9 +40,9 @@ app = FastAPI(title="FAISS-powered Recipe Recommender")
 
 # Initialize searcher once when app starts
 searcher = RecipeSearcher(
-    index_path=os.path.join(DATA_DIR, "faiss.index"),
-    idmap_path=os.path.join(DATA_DIR, "idmap.parquet"),
-    db_path=os.path.join(DATA_DIR, "recipes.sqlite")
+    index_path=FAISS_PATH,
+    idmap_path=IDMAP_PATH,
+    db_path=SQLITE_PATH
 )
 
 class RecipeResult(BaseModel):
