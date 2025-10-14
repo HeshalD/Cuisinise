@@ -2,6 +2,7 @@ import express from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
+import { auth } from "../middleware/auth.js";
 
 const router = express.Router();
 const JWT_SECRET = process.env.JWT_SECRET || "supersecret";
@@ -29,6 +30,13 @@ router.post("/login", async (req, res) => {
 
   const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: "7d" });
   res.json({ success: true, token, user: { id: user._id, name: user.name } });
+});
+
+router.delete("/account", auth, async (req, res) => {
+  const user = await User.findById(req.userId);
+  if (!user) return res.status(404).json({ error: "User not found" });
+  await User.deleteOne({ _id: req.userId });
+  res.json({ success: true });
 });
 
 export default router;

@@ -15,7 +15,7 @@ export default function Login() {
     e?.preventDefault();
     const res = await api.post('/auth/login', { email, password });
     login(res.data.user, res.data.token);
-    window.location.href = '/dashboard';
+    window.location.href = '/home';
   };
 
   return (

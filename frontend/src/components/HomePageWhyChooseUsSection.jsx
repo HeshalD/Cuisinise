@@ -2,6 +2,8 @@ import image1 from '../images/Home - search.png'
 import image2 from '../images/Platform.png'
 import image3 from '../images/fast.png'
 import image4 from '../images/experience.png'
+import SplitText from "../components/SpiltText/SplitText"
+
 
 const WhyChooseUs = () => {
     const features = [

@@ -167,4 +167,22 @@ async function updateChatSummary(chatId) {
   }
 }
 
+router.delete("/:chatId", auth, async (req, res) => {
+  try {
+    const chat = await Chat.findById(req.params.chatId);
+    if (!chat) {
+      return res.status(404).json({ error: "Chat not found" });
+    }
+    if (String(chat.userId) !== String(req.userId)) {
+      return res.status(403).json({ error: "Not authorized to delete this chat" });
+    }
+    await Message.deleteMany({ chatId: chat._id });
+    await Chat.findByIdAndDelete(chat._id);
+    return res.json({ success: true });
+  } catch (err) {
+    console.error("Failed to delete chat:", err);
+    return res.status(500).json({ success: false, error: "Failed to delete chat" });
+  }
+});
+
 export default router;
