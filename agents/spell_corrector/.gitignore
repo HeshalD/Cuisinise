@@ -1,0 +1,10 @@
+venv/
+env/
+ENV/
+__pycache__/
+*.pyc
+data/
+recipes_w_search_terms.csv
+recipes.csv
+pytorch_check.py
+domain_vocab_embeddings.pt

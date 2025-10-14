@@ -1,0 +1,51 @@
+2025-10-12 15:33:24,336 - __main__ - ERROR - Missing required packages: ['aiohttp']
+2025-10-12 15:33:24,338 - __main__ - ERROR - Please install them with: pip install aiohttp
+2025-10-12 15:39:14,361 - __main__ - WARNING - Missing optional packages (GPU acceleration may not work): ['pandas']
+2025-10-12 15:39:14,362 - __main__ - WARNING - For GPU support, install with: pip install torch torchvision
+2025-10-12 15:39:14,368 - __main__ - INFO -   Host: 0.0.0.0
+2025-10-12 15:39:14,368 - __main__ - INFO -   Port: 8000
+2025-10-12 15:39:14,369 - __main__ - INFO -   Workers: 1
+2025-10-12 15:39:14,369 - __main__ - INFO -   Log Level: info
+2025-10-12 15:39:14,582 - gpu_optimizer - INFO - GPU acceleration available: NVIDIA GeForce RTX 4050 Laptop GPU
+2025-10-12 15:39:14,587 - youtube_api - INFO - GPU acceleration available: NVIDIA GeForce RTX 4050 Laptop GPU
+2025-10-12 15:39:14,844 - gpu_optimizer - INFO - GPU model initialized successfully
+2025-10-12 15:39:14,844 - youtube_api - INFO - GPU optimization initialized successfully
+2025-10-12 15:39:36,270 - __main__ - WARNING - Missing optional packages (GPU acceleration may not work): ['torch', 'numpy', 'pandas']
+2025-10-12 15:39:36,271 - __main__ - WARNING - For GPU support, install with: pip install torch torchvision
+2025-10-12 15:39:36,282 - __main__ - INFO -   Host: 0.0.0.0
+2025-10-12 15:39:36,283 - __main__ - INFO -   Port: 8000
+2025-10-12 15:39:36,285 - __main__ - INFO -   Workers: 1
+2025-10-12 15:39:36,285 - __main__ - INFO -   Log Level: info
+2025-10-12 15:40:31,041 - __main__ - INFO - Starting Optimized YouTube Recipe API
+2025-10-12 15:40:32,093 - __main__ - WARNING - Missing optional packages (GPU acceleration may not work): ['torch', 'numpy', 'pandas']
+2025-10-12 15:40:32,093 - __main__ - WARNING - For GPU support, install with: pip install torch torchvision
+2025-10-12 15:40:32,093 - __main__ - INFO - Configuration:
+2025-10-12 15:40:32,093 - __main__ - INFO -   Host: 0.0.0.0
+2025-10-12 15:40:32,094 - __main__ - INFO -   Port: 8000
+2025-10-12 15:40:32,094 - __main__ - INFO -   Workers: 1
+2025-10-12 15:40:32,094 - __main__ - INFO -   Log Level: info
+2025-10-12 15:40:32,094 - __main__ - INFO - Starting with single worker process
+2025-10-12 15:40:32,094 - __main__ - INFO - Starting server...
+2025-10-12 15:40:32,104 - __main__ - ERROR - Server error: No module named 'httptools'
+2025-10-12 15:40:49,365 - __main__ - INFO - Starting Optimized YouTube Recipe API
+2025-10-12 15:40:51,420 - __main__ - WARNING - Missing optional packages (GPU acceleration may not work): ['torch', 'numpy', 'pandas']
+2025-10-12 15:40:51,420 - __main__ - WARNING - For GPU support, install with: pip install torch torchvision
+2025-10-12 15:40:51,421 - __main__ - INFO - Configuration:
+2025-10-12 15:40:51,421 - __main__ - INFO -   Host: 0.0.0.0
+2025-10-12 15:40:51,422 - __main__ - INFO -   Port: 8000
+2025-10-12 15:40:51,422 - __main__ - INFO -   Workers: 1
+2025-10-12 15:40:51,422 - __main__ - INFO -   Log Level: info
+2025-10-12 15:40:51,423 - __main__ - INFO - Starting with single worker process
+2025-10-12 15:40:51,423 - __main__ - INFO - Starting server...
+2025-10-12 15:40:51,693 - __main__ - ERROR - Server error: No module named 'websockets'
+2025-10-12 15:41:09,355 - __main__ - INFO - Starting Optimized YouTube Recipe API
+2025-10-12 15:41:11,561 - __main__ - WARNING - Missing optional packages (GPU acceleration may not work): ['torch', 'numpy', 'pandas']
+2025-10-12 15:41:11,563 - __main__ - WARNING - For GPU support, install with: pip install torch torchvision
+2025-10-12 15:41:11,564 - __main__ - INFO - Configuration:
+2025-10-12 15:41:11,565 - __main__ - INFO -   Host: 0.0.0.0
+2025-10-12 15:41:11,565 - __main__ - INFO -   Port: 8000
+2025-10-12 15:41:11,566 - __main__ - INFO -   Workers: 1
+2025-10-12 15:41:11,567 - __main__ - INFO -   Log Level: info
+2025-10-12 15:41:11,568 - __main__ - INFO - Starting with single worker process
+2025-10-12 15:41:11,568 - __main__ - INFO - Starting server...
+2025-10-12 15:41:11,674 - __main__ - ERROR - Server error: <lambda>() takes 1 positional argument but 2 were given
