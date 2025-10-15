@@ -1,7 +1,8 @@
 // src/utils/api.js
 import axios from "axios";
 
-const baseURL = process.env.REACT_APP_API_BASE_URL || "https://cuisinise-backend.purpletree-02fc877a.centralindia.azurecontainerapps.io/api";
+const baseURL = "https://cuisinise.onrender.com/api"; // ✅ add /api suffix
+
 const api = axios.create({ baseURL });
 
 api.interceptors.request.use((config) => {
