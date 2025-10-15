@@ -9,9 +9,7 @@ dotenv.config();
 const app = express();
 
 const allowedOrigins = [
-  process.env.CLIENT_ORIGIN || "https://cuisinise.vercel.app",
-  "http://localhost:3000",
-  "https://localhost:3000"
+  process.env.CLIENT_ORIGIN || "https://cuisinise.vercel.app"
 ];
 
 const corsOptions = {
@@ -28,7 +26,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-app.options("*", cors(corsOptions));
+app.options("*", cors(corsOptions)); // ✅ FIXED LINE
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
