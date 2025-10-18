@@ -7,7 +7,7 @@ import torch
 
 # ===== CONFIG =====
 CSV_FILES = [
-    "recipes_w_search_terms.csv",  # replace with your actual paths
+    "recipes_w_search_terms.csv",  # csv path
     "recipes.csv"
 ]
 OUTPUT_PKL = "domain_vocab.pkl"
